@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python ini_to_sqlite.py:*)",
+      "Bash(python:*)",
+      "Bash(sqlite3:*)"
+    ]
+  }
+}

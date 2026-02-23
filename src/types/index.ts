@@ -1,7 +1,7 @@
 // TypeScript interfaces for keyboard/mouse data
 
 export interface DailyStat {
-  id: number;
+  id?: number; // Optional - not returned by backend after schema adaptation
   date: string;
   keystrokes: number;
   leftClicks: number;
@@ -11,16 +11,16 @@ export interface DailyStat {
   wheelScrolls: number;
   hWheelScrolls: number;
   mouseDistanceM: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string; // Optional - not returned by backend after schema adaptation
+  updatedAt?: string; // Optional - not returned by backend after schema adaptation
 }
 
 export interface ScancodeStat {
-  id: number;
+  id?: number; // Optional - not always returned
   date: string;
   scancode: number;
   count: number;
-  createdAt: string;
+  createdAt?: string; // Optional - not always returned
   keyName?: string;
 }
 

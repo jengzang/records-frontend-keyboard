@@ -164,6 +164,59 @@ export interface UsagePattern {
   data: any;
 }
 
+// Hourly analysis
+export interface HourlyPattern {
+  hour: number;
+  dayOfWeek: number;
+  avgKeystrokes: number;
+  avgClicks: number;
+}
+
+// Top keys by category
+export interface TopKeysByCategory {
+  [category: string]: TopKey[];
+}
+
+// Modifier usage
+export interface ModifierUsage {
+  ctrl: number;
+  shift: number;
+  alt: number;
+  win: number;
+}
+
+// Special key usage
+export interface SpecialKeyUsage {
+  keyName: string;
+  count: number;
+}
+
+// Letter frequency
+export interface LetterFrequency {
+  letter: string;
+  count: number;
+  percentage: number;
+}
+
+// Intensity metrics
+export interface IntensityMetrics {
+  avgKeystrokes: number;
+  avgClicks: number;
+  avgDistance: number;
+  peakKeystrokes: number;
+  peakClicks: number;
+  peakDistance: number;
+  p50Keystrokes: number;
+  p75Keystrokes: number;
+  p95Keystrokes: number;
+  activeDays: number;
+}
+
+// Extended PeakDay with distance
+export interface PeakDayExtended extends PeakDay {
+  distance?: number;
+}
+
 export interface ApiResponse<T> {
   data: T;
   count?: number;

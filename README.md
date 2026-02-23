@@ -71,6 +71,28 @@ npm run preview
 
 ## 更新日志
 
+### 2026-02-24 (Frontend Integration - Phase 3: 增强功能)
+- ✅ KeyboardHeatmapPage交互增强
+  - 点击按键弹出详细统计Modal
+  - 显示6项关键指标（总计数/峰值/活跃天数/类别/百分比/平均值）
+  - 添加使用分析文本说明
+  - 更新使用说明，强调点击功能
+- ✅ KeyboardHeatmap组件更新
+  - 添加onKeyClick回调prop支持点击事件
+  - 点击时显示指针光标提示可交互
+- ✅ Trends页面重构 - 多维度趋势分析
+  - 新增5个Tab页面组织数据：
+    1. Keyboard Trends - 键盘按键趋势
+    2. Mouse Clicks - 总点击趋势 + 点击类型分布（左键/右键/中键）
+    3. Mouse Scrolling - 滚轮使用（垂直/水平）柱状图
+    4. Mouse Movement - 鼠标移动距离趋势
+    5. Multi-Metric Comparison - 多指标对比（按键vs点击/活动强度）
+  - 从getTrends切换到getDailyStats API获取详细鼠标数据
+  - 使用DailyStat类型支持leftClicks/rightClicks/middleClicks/wheelScrolls等详细字段
+  - 添加Column图表展示滚轮数据
+  - 多系列Line图表展示点击类型分布
+  - 计算活动强度指标（按键+点击总和）
+
 ### 2026-02-24 (Frontend Integration - Phase 2-5)
 - ✅ 创建TopKeysPage独立页面
   - Top 20按键排行榜展示

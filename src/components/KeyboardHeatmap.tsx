@@ -8,9 +8,10 @@ import './KeyboardHeatmap.css';
 interface KeyboardHeatmapProps {
   data: KeyHeatmapData[];
   loading?: boolean;
+  onKeyClick?: (keyData: KeyHeatmapData) => void;
 }
 
-const KeyboardHeatmap: React.FC<KeyboardHeatmapProps> = ({ data, loading = false }) => {
+const KeyboardHeatmap: React.FC<KeyboardHeatmapProps> = ({ data, loading = false, onKeyClick }) => {
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [maxCount, setMaxCount] = useState<number>(0);
@@ -61,6 +62,14 @@ const KeyboardHeatmap: React.FC<KeyboardHeatmapProps> = ({ data, loading = false
     }
   };
 
+  // Handle key click
+  const handleKeyClick = (keyId: string) => {
+    const keyData = getKeyData(keyId);
+    if (keyData && onKeyClick) {
+      onKeyClick(keyData);
+    }
+  };
+
   // Render a row of keys
   const renderKeyRow = (keys: KeyConfig[]) => {
     return (
@@ -69,6 +78,8 @@ const KeyboardHeatmap: React.FC<KeyboardHeatmapProps> = ({ data, loading = false
           <div
             key={keyConfig.id}
             onMouseMove={(e) => handleKeyHover(keyConfig.id, e)}
+            onClick={() => handleKeyClick(keyConfig.id)}
+            style={{ cursor: onKeyClick ? 'pointer' : 'default' }}
           >
             <Key
               config={keyConfig}

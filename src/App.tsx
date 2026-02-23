@@ -6,11 +6,13 @@ import {
   TableOutlined,
   LineChartOutlined,
   HeatMapOutlined,
+  BarChartOutlined,
 } from '@ant-design/icons';
 import Home from './pages/Home';
 import DailyStats from './pages/DailyStats';
 import Trends from './pages/Trends';
 import KeyboardHeatmapPage from './pages/KeyboardHeatmapPage';
+import StatisticsPage from './pages/StatisticsPage';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
@@ -32,6 +34,9 @@ function App() {
             <Menu.Item key="home" icon={<HomeOutlined />}>
               <Link to="/">Home</Link>
             </Menu.Item>
+            <Menu.Item key="statistics" icon={<BarChartOutlined />}>
+              <Link to="/statistics">Statistics</Link>
+            </Menu.Item>
             <Menu.Item key="daily" icon={<TableOutlined />}>
               <Link to="/daily">Daily Stats</Link>
             </Menu.Item>
@@ -48,6 +53,7 @@ function App() {
           <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/statistics" element={<StatisticsPage />} />
               <Route path="/daily" element={<DailyStats />} />
               <Route path="/trends" element={<Trends />} />
               <Route path="/heatmap" element={<KeyboardHeatmapPage />} />

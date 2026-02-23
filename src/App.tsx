@@ -1,26 +1,66 @@
-import { useState } from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+import {
+  HomeOutlined,
+  TableOutlined,
+  LineChartOutlined,
+  HeatMapOutlined,
+} from '@ant-design/icons';
+import Home from './pages/Home';
+import DailyStats from './pages/DailyStats';
+import Trends from './pages/Trends';
+import KeyboardHeatmapPage from './pages/KeyboardHeatmapPage';
+import './App.css';
+
+const { Header, Content, Footer } = Layout;
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          键盘鼠标使用统计
-        </h1>
-        <p className="text-gray-600 mb-4">
-          键盘和鼠标使用数据分析与可视化
-        </p>
-        <button
-          onClick={() => setCount((count) => count + 1)}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-        >
-          计数: {count}
-        </button>
-      </div>
-    </div>
-  )
+    <Router>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+          <div style={{ float: 'left', color: 'white', fontSize: '18px', marginRight: '50px' }}>
+            Keyboard & Mouse Analytics
+          </div>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['home']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="home" icon={<HomeOutlined />}>
+              <Link to="/">Home</Link>
+            </Menu.Item>
+            <Menu.Item key="daily" icon={<TableOutlined />}>
+              <Link to="/daily">Daily Stats</Link>
+            </Menu.Item>
+            <Menu.Item key="trends" icon={<LineChartOutlined />}>
+              <Link to="/trends">Trends</Link>
+            </Menu.Item>
+            <Menu.Item key="heatmap" icon={<HeatMapOutlined />}>
+              <Link to="/heatmap">Heatmap</Link>
+            </Menu.Item>
+          </Menu>
+        </Header>
+
+        <Content style={{ padding: '0 50px', marginTop: 64 }}>
+          <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/daily" element={<DailyStats />} />
+              <Route path="/trends" element={<Trends />} />
+              <Route path="/heatmap" element={<KeyboardHeatmapPage />} />
+            </Routes>
+          </div>
+        </Content>
+
+        <Footer style={{ textAlign: 'center' }}>
+          Keyboard & Mouse Analytics ©2026
+        </Footer>
+      </Layout>
+    </Router>
+  );
 }
 
-export default App
+export default App;

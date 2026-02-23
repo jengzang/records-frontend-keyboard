@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Spin, Alert } from 'antd';
+import { Row, Col, Spin, Alert, Card, Button } from 'antd';
 import {
-  KeyboardOutlined,
-  ClickOutlined,
+  KeyOutlined,
+  MouseOutlined,
   DragOutlined,
   CalendarOutlined,
   TrophyOutlined,
+  RightOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import StatCard from '../components/StatCard';
 import keyboardApi from '../services/api';
-import type { SummaryStats } from '../types';
+import type { SummaryStats, TopKey } from '../types';
 
 const Home: React.FC = () => {
   const [stats, setStats] = useState<SummaryStats | null>(null);
+  const [topKeys, setTopKeys] = useState<TopKey[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const data = await keyboardApi.getSummaryStats();
-        setStats(data);
+        const [summaryData, topKeysData] = await Promise.all([
+          keyboardApi.getSummaryStats(),
+          keyboardApi.getTopKeys(3),
+        ]);
+        setStats(summaryData);
+        setTopKeys(topKeysData);
         setError(null);
       } catch (err) {
         setError('Failed to load statistics');
@@ -76,7 +84,7 @@ const Home: React.FC = () => {
           <StatCard
             title="Total Keystrokes"
             value={stats.totalKeystrokes}
-            prefix={<KeyboardOutlined />}
+            prefix={<KeyOutlined />}
             valueStyle={{ color: '#3f8600' }}
           />
         </Col>
@@ -85,7 +93,7 @@ const Home: React.FC = () => {
           <StatCard
             title="Total Clicks"
             value={stats.totalClicks}
-            prefix={<ClickOutlined />}
+            prefix={<MouseOutlined />}
             valueStyle={{ color: '#1890ff' }}
           />
         </Col>
@@ -140,6 +148,99 @@ const Home: React.FC = () => {
             title="Avg Mouse Distance/Day"
             value={formatDistance(stats.avgMouseDistancePerDay)}
           />
+        </Col>
+      </Row>
+
+      <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
+        <Col xs={24}>
+          <Card
+            title={
+              <span>
+                <TrophyOutlined style={{ marginRight: 8 }} />
+                Top 3 Most Used Keys
+              </span>
+            }
+            extra={
+              <Button type="link" onClick={() => navigate('/top-keys')}>
+                View All <RightOutlined />
+              </Button>
+            }
+          >
+            {topKeys.length > 0 ? (
+              <Row gutter={[16, 16]}>
+                {topKeys.map((key, index) => (
+                  <Col xs={24} sm={8} key={key.scancode}>
+                    <Card
+                      style={{
+                        background: index === 0 ? '#fff7e6' : index === 1 ? '#f0f0f0' : '#fafafa',
+                        border: index === 0 ? '2px solid #faad14' : '1px solid #d9d9d9',
+                      }}
+                    >
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '32px', marginBottom: 8 }}>
+                          {index === 0 && '🥇'}
+                          {index === 1 && '🥈'}
+                          {index === 2 && '🥉'}
+                        </div>
+                        <div style={{ fontSize: '24px', fontWeight: 'bold', fontFamily: 'monospace' }}>
+                          {key.keyName}
+                        </div>
+                        <div style={{ fontSize: '18px', color: '#666', marginTop: 8 }}>
+                          {formatNumber(key.count)} times
+                        </div>
+                        <div style={{ fontSize: '14px', color: '#999' }}>
+                          {key.percentage.toFixed(2)}% of total
+                        </div>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '20px', color: '#999' }}>
+                No data available
+              </div>
+            )}
+          </Card>
+        </Col>
+      </Row>
+
+      <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
+        <Col xs={24} sm={8}>
+          <Card>
+            <Button
+              type="primary"
+              block
+              size="large"
+              onClick={() => navigate('/statistics')}
+            >
+              View Detailed Statistics
+            </Button>
+          </Card>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Card>
+            <Button
+              type="default"
+              block
+              size="large"
+              onClick={() => navigate('/heatmap')}
+            >
+              View Keyboard Heatmap
+            </Button>
+          </Card>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Card>
+            <Button
+              type="default"
+              block
+              size="large"
+              onClick={() => navigate('/trends')}
+            >
+              View Usage Trends
+            </Button>
+          </Card>
         </Col>
       </Row>
     </div>

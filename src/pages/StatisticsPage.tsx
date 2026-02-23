@@ -85,7 +85,7 @@ const StatisticsPage: React.FC = () => {
       setDayOfWeekData(dayOfWeek as TemporalAnalysis[]);
       setMonthlyData(monthly as TemporalAnalysis[]);
       setWeekdayVsWeekend(weekdayWeekend as WeekdayVsWeekend);
-      setHourlyData(hourly as HourlyPattern[]);
+      setHourlyData(hourly as unknown as HourlyPattern[]);
       setCategoryData(categories as CategoryDistribution[]);
       setTopKeysByCategory(topKeys as TopKeysByCategory);
       setModifierUsage(modifiers as ModifierUsage);

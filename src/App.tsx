@@ -7,12 +7,14 @@ import {
   LineChartOutlined,
   HeatMapOutlined,
   BarChartOutlined,
+  TrophyOutlined,
 } from '@ant-design/icons';
 import Home from './pages/Home';
 import DailyStats from './pages/DailyStats';
 import Trends from './pages/Trends';
 import KeyboardHeatmapPage from './pages/KeyboardHeatmapPage';
 import StatisticsPage from './pages/StatisticsPage';
+import TopKeysPage from './pages/TopKeysPage';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
@@ -46,6 +48,9 @@ function App() {
             <Menu.Item key="heatmap" icon={<HeatMapOutlined />}>
               <Link to="/heatmap">Heatmap</Link>
             </Menu.Item>
+            <Menu.Item key="topkeys" icon={<TrophyOutlined />}>
+              <Link to="/top-keys">Top Keys</Link>
+            </Menu.Item>
           </Menu>
         </Header>
 
@@ -57,6 +62,7 @@ function App() {
               <Route path="/daily" element={<DailyStats />} />
               <Route path="/trends" element={<Trends />} />
               <Route path="/heatmap" element={<KeyboardHeatmapPage />} />
+              <Route path="/top-keys" element={<TopKeysPage />} />
             </Routes>
           </div>
         </Content>

@@ -130,6 +130,18 @@ export const keyboardApi = {
     const response = await api.get('/keyboard/statistics/productivity', { params });
     return response.data;
   },
+
+  // Get hand balance statistics
+  getHandBalance: async (): Promise<any> => {
+    const response = await api.get('/keyboard/statistics/hand_balance');
+    return response.data;
+  },
+
+  // Get weekday vs weekend comparison
+  getWeekdayWeekendComparison: async (): Promise<any> => {
+    const response = await api.get('/keyboard/statistics/weekday_weekend');
+    return response.data;
+  },
 };
 
 export default keyboardApi;

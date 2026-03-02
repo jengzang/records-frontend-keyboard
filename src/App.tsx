@@ -10,6 +10,7 @@ import {
   TrophyOutlined,
   FundOutlined,
   ApiOutlined,
+  HeartOutlined,
 } from '@ant-design/icons';
 import Home from './pages/Home';
 import DailyStats from './pages/DailyStats';
@@ -19,6 +20,7 @@ import StatisticsPage from './pages/StatisticsPage';
 import TopKeysPage from './pages/TopKeysPage';
 import AdvancedAnalysis from './pages/AdvancedAnalysis';
 import CrossModuleAnalysis from './pages/CrossModuleAnalysis';
+import KeyboardHealthCorrelation from './pages/KeyboardHealthCorrelation';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
@@ -61,6 +63,9 @@ function App() {
             <Menu.Item key="cross-module" icon={<ApiOutlined />}>
               <Link to="/cross-module">Cross Module</Link>
             </Menu.Item>
+            <Menu.Item key="health-correlation" icon={<HeartOutlined />}>
+              <Link to="/health-correlation">Health</Link>
+            </Menu.Item>
           </Menu>
         </Header>
 
@@ -75,6 +80,7 @@ function App() {
               <Route path="/top-keys" element={<TopKeysPage />} />
               <Route path="/advanced" element={<AdvancedAnalysis />} />
               <Route path="/cross-module" element={<CrossModuleAnalysis />} />
+              <Route path="/health-correlation" element={<KeyboardHealthCorrelation />} />
             </Routes>
           </div>
         </Content>

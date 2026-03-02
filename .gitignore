@@ -35,3 +35,17 @@ yarn-error.log*
 *.png
 *.jpg
 *.jpeg
+
+# Reference and release files
+reference/release/
+*.zip
+*.exe
+*.pyd
+*.dll
+*.so
+*.dylib
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
